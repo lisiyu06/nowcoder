@@ -6,19 +6,25 @@ import java.util.Scanner;
  * Author: lisiyu
  * Created: 2020/3/11
  */
+
+// 神奇的口袋
+
 public class Main {
 
     static int n;
     static int[] vol;
+    static int sum = 0;
 
-    public static int count(int rest, int n) {
+    public static void count(int rest, int n) {
         if (rest == 0) {
-            return 1;
+            sum++;
+            return;
         }
-        if (n <= 0) {
-            return 0;
+        if (rest<0 || (rest>0 && n<1)) {
+            return;
         }
-        return count(rest-vol[n], n-1) + count(rest, n-1);
+        count(rest - vol[n], n-1);
+        count(rest, n-1);
     }
 
     public static void main(String[] args) {
@@ -30,6 +36,7 @@ public class Main {
         for (int i = 1; i <= n; i++) {
             vol[i] = scanner.nextInt();
         }
-        System.out.println(count(40, n));
+        count(40, n);
+        System.out.println(sum);
     }
 }
