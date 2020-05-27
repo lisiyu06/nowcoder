@@ -1,0 +1,28 @@
+package day_33;
+
+/**
+ * Author: lisiyu
+ * Created: 2020/5/27
+ */
+// 上楼梯
+public class Main {
+    public int countWays(int n) {
+        // 第一阶有一种方法
+        // 第二阶有两种方法，一步一步 or 一次两步
+        // 第三阶有四种方法，1+1+1 or 1 + 2 or 2 + 1 or 3
+        long[] pre = {1, 2, 4};
+        if(n <= 0)
+            return 0;
+        else if (n <= 3)
+            return (int)pre[n-1];
+        else {
+            for (int i = 4; i <= n; i++) {
+                long tmp = (pre[0] + pre[1] + pre[2]) % 1000000007;
+                pre[0] = pre[1];
+                pre[1] = pre[2];
+                pre[2] = tmp;
+            }
+        }
+        return (int)pre[2];
+    }
+}
